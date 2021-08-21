@@ -49,7 +49,7 @@ export const loadImageToCanva = async (httpUrl = []) => {
                     }
                     return resolve(result)
                 }
-                video.setAttribute('crossorigin', 'anonymous')
+                // video.setAttribute('crossorigin', 'anonymous')
                 video.controls = true
                 video.autoplay = false
                 video.muted = false

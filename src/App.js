@@ -11,14 +11,16 @@ const App = () => {
   const [configVideo, setConfigVideo] = useState({})
   const [valueCurrentTime, setValueCurrentTime] = useState(1)
   const [valueInputAddVideo, setValueInputAddVideo] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const loadedAllVideo = async (videos) => {
+    setLoading(true)
     const listVideoLoaded = await loadImageToCanva(videos)
-    debugger
     const duration = listVideoLoaded.map(item => item.duration).reduce((a, b) => a + b)
     const config = {
       duration
     }
+    setLoading(false)
     setConfigVideo(config)
     setListVideo(listVideoLoaded)
   }
@@ -146,8 +148,8 @@ const App = () => {
         <div className="wrapper">
           <canvas id={ID_CANVAS} ref={canvasRef}></canvas>
         </div>
-        <Button color="primary" onClick={() => { playAction(playerCurrent) }}>Play</Button>
-        <Button color="secondary" onClick={() => { pauseVideo(playerCurrent) }}>Pause</Button>
+        <Button color="primary" disabled={loading} onClick={() => { playAction(playerCurrent) }}>Play</Button>
+        <Button color="secondary" disabled={loading} onClick={() => { pauseVideo(playerCurrent) }}>Pause</Button>
 
         <Slider
           value={valueCurrentTime}
